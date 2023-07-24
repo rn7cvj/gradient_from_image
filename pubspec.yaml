@@ -46,6 +46,7 @@ dependencies:
   mobx_codegen: ^2.3.0
   image_picker: ^1.0.1
   image_picker_for_web: ^2.2.0
+  loading_animation_widget: ^1.2.0+4
 
 dev_dependencies:
   flutter_test:

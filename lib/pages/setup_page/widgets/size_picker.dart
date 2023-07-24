@@ -4,7 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:gradient_from_image/constants.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../i18n/strings.g.dart';
+import '../../../i18n/strings.g.dart';
 
 class SizePicker extends StatelessWidget {
   SizePicker({super.key});

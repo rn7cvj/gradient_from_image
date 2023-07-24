@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 2
-/// Strings: 10 (5 per locale)
+/// Strings: 14 (7 per locale)
 ///
-/// Built on 2023-07-24 at 02:46 UTC
+/// Built on 2023-07-24 at 08:38 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -165,6 +165,8 @@ class _StringsSetupEn {
 	String get upload_image => 'Upload Image';
 	String get width => 'Width';
 	String get height => 'Height';
+	String get generate => 'Generate';
+	String get generating => 'Generating';
 }
 
 // Path: <root>
@@ -207,6 +209,8 @@ class _StringsSetupRu implements _StringsSetupEn {
 	@override String get upload_image => 'Загрузить картинку';
 	@override String get width => 'Ширина';
 	@override String get height => 'Высота';
+	@override String get generate => 'Сгенерировать';
+	@override String get generating => 'Генерируем';
 }
 
 /// Flat map(s) containing all translations.
@@ -220,6 +224,8 @@ extension on _StringsEn {
 			case 'setup.upload_image': return 'Upload Image';
 			case 'setup.width': return 'Width';
 			case 'setup.height': return 'Height';
+			case 'setup.generate': return 'Generate';
+			case 'setup.generating': return 'Generating';
 			default: return null;
 		}
 	}
@@ -233,6 +239,8 @@ extension on _StringsRu {
 			case 'setup.upload_image': return 'Загрузить картинку';
 			case 'setup.width': return 'Ширина';
 			case 'setup.height': return 'Высота';
+			case 'setup.generate': return 'Сгенерировать';
+			case 'setup.generating': return 'Генерируем';
 			default: return null;
 		}
 	}

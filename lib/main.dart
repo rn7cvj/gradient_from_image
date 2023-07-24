@@ -1,7 +1,8 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:gradient_from_image/setup_page/setup_page.dart';
+import 'package:gradient_from_image/pages/gradient_page/gradient_page.dart';
+import 'package:gradient_from_image/pages/setup_page/setup_page.dart';
 import 'package:image/image.dart' as img;
 
 void main() {
@@ -20,7 +21,7 @@ class App extends StatelessWidget {
       darkTheme: ThemeData.dark(
         useMaterial3: true,
       ),
-      home: SetupPage(),
+      home: GradientPage(),
       debugShowCheckedModeBanner: false,
     );
   }
