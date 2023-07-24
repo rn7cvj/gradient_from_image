@@ -1,5 +1,9 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:gradient_from_image/modal/image_gradinet.dart';
+import 'package:gradient_from_image/pages/gradient_page/gradient_page.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobx/mobx.dart';
 
@@ -20,7 +24,17 @@ class GenerateButton extends StatelessWidget {
         child: Observer(
           builder: (_) {
             return ElevatedButton(
-              onPressed: img.value == null ? null : () => runInAction(() => isProcessed.value = true),
+              onPressed: img.value == null
+                  ? null
+                  : () async {
+                      runInAction(() => isProcessed.value = true);
+
+                      Uint8List imageBytes = await img.value!.readAsBytes();
+
+                      ImageGradient gradient = ImageGradient(imageBytes, 2, 2);
+
+                      runInAction(() => isProcessed.value = false);
+                    },
               child: Text(t.setup.generate),
             );
           },

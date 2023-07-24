@@ -21,7 +21,7 @@ class App extends StatelessWidget {
       darkTheme: ThemeData.dark(
         useMaterial3: true,
       ),
-      home: GradientPage(),
+      home: SetupPage(),
       debugShowCheckedModeBanner: false,
     );
   }

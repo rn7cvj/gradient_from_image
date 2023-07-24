@@ -9,7 +9,7 @@ class GradientPortrait extends StatelessWidget {
     return Scaffold(
       body: Container(),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => showBottomSheet(
+        onPressed: () => showModalBottomSheet(
           context: context,
           builder: (context) => SettingsBottomSheet(),
         ),

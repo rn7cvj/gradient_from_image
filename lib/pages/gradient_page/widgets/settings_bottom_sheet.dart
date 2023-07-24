@@ -5,6 +5,8 @@ class SettingsBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Row(
+      children: [],
+    );
   }
 }
