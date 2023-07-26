@@ -1,28 +1,38 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
-import 'package:gradient_from_image/pages/gradient_page/gradient_page.dart';
-import 'package:gradient_from_image/pages/setup_page/setup_page.dart';
-import 'package:image/image.dart' as img;
+import 'package:get_it/get_it.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'navigator/navigation_state.dart';
+import 'navigator/route_information_parser.dart';
+import 'navigator/router_delegate.dart';
 
 void main() {
-  runApp(const App());
+  final routerDelegate = MyRouterDelegate();
+  routerDelegate.state = NavigationState.setup();
+
+  GetIt.I.registerSingleton<IRouter>(routerDelegate);
+  GetIt.I.registerSingleton<RouterDelegate<NavigationState>>(routerDelegate);
+
+  runApp(App());
 }
 
 class App extends StatelessWidget {
-  const App({super.key});
+  App({super.key});
+  final _routeInformationParser = MyRouteInformationParser();
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       theme: ThemeData.light(
         useMaterial3: true,
       ),
       darkTheme: ThemeData.dark(
         useMaterial3: true,
       ),
-      home: SetupPage(),
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
+      routerDelegate: GetIt.I<RouterDelegate<NavigationState>>(),
+      routeInformationParser: _routeInformationParser,
     );
   }
 }

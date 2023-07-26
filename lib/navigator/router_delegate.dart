@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:gradient_from_image/modal/image_gradinet.dart';
+import 'package:gradient_from_image/pages/gradient_page/gradient_page.dart';
+import 'package:gradient_from_image/pages/setup_page/setup_page.dart';
 import 'navigation_state.dart';
 
-mixin IRouter {
-  void openEditTaskPage(String taskId);
+abstract class IRouter {
+  void openGradientPage(ImageGradient gradient);
 
-  void openAddTaskPage();
-
-  void openSettingsPage();
-
-  void openInternetErrorPage();
-
-  void popToHomePage();
+  void popToSetupPage();
 }
 
 class MyRouterDelegate extends RouterDelegate<NavigationState>
-    with ChangeNotifier, PopNavigatorRouterDelegateMixin<NavigationState>, IRouter {
+    with ChangeNotifier, PopNavigatorRouterDelegateMixin<NavigationState>
+    implements IRouter {
   NavigationState? state;
 
   @override
@@ -25,45 +23,15 @@ class MyRouterDelegate extends RouterDelegate<NavigationState>
   @override
   Widget build(BuildContext context) {
     List<Page<dynamic>> pages = [
-      const MaterialPage(
-        child: HomePage(),
-      ),
-      if (state?.isAddTask == true)
+      if (state?.isSetup == true)
         const MaterialPage(
-          child: AddTaskPage(),
+          child: SetupPage(),
         ),
-      if (state?.isEditTask == true)
+      if (state?.isGradient == true)
         MaterialPage(
-          child: EditTaskPage(taskId: state!.editTaskId),
+          child: GradientPage(gradient: state!.imageGradient!),
         ),
-      if (state?.isUnknown == true)
-        const MaterialPage(
-          child: UnknownPage(),
-        ),
-      if (state?.isSettings == true)
-        const MaterialPage(
-          child: SettingsPage(),
-        )
     ];
-
-    if (state?.isInternetCheck == true) {
-      pages = [
-        MaterialPage(
-          child: InternetCheckPage(
-            onInternetAvalible: popToHomePage,
-            onInternetUnavalible: openInternetErrorPage,
-          ),
-        ),
-      ];
-    }
-
-    if (state?.isInternetError == true) {
-      pages = [
-        const MaterialPage(
-          child: NoInternetPage(),
-        ),
-      ];
-    }
 
     return Navigator(
       key: navigatorKey,
@@ -73,7 +41,7 @@ class MyRouterDelegate extends RouterDelegate<NavigationState>
           return false;
         }
 
-        state = NavigationState.root();
+        state = NavigationState.setup();
 
         notifyListeners();
         return true;
@@ -82,38 +50,20 @@ class MyRouterDelegate extends RouterDelegate<NavigationState>
   }
 
   @override
+  void openGradientPage(ImageGradient gradient) {
+    state = NavigationState.imageGradient(gradient);
+    notifyListeners();
+  }
+
+  @override
+  void popToSetupPage() {
+    state = NavigationState.setup();
+    notifyListeners();
+  }
+
+  @override
   Future<void> setNewRoutePath(NavigationState configuration) async {
     state = configuration;
-    notifyListeners();
-  }
-
-  @override
-  void openAddTaskPage() {
-    state = NavigationState.createTask();
-    notifyListeners();
-  }
-
-  @override
-  void openEditTaskPage(String taskId) {
-    state = NavigationState.editTask(taskId);
-    notifyListeners();
-  }
-
-  @override
-  void openSettingsPage() {
-    state = NavigationState.settings();
-    notifyListeners();
-  }
-
-  @override
-  void popToHomePage() {
-    state = NavigationState.root();
-    notifyListeners();
-  }
-
-  @override
-  void openInternetErrorPage() {
-    state = NavigationState.internetError();
     notifyListeners();
   }
 }
